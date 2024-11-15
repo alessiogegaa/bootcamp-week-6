@@ -17,7 +17,7 @@ interface ProductFormData {
 }
 
 const AddProduct: React.FC = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<Omit<ProductFormData, 'id'>>(); // Exclude 'id' from the form
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Omit<ProductFormData, 'id'>>(); 
 
   const onSubmit = (data: Omit<ProductFormData, 'id'>) => {
     const newProducts = JSON.parse(localStorage.getItem('newProducts') || '[]');

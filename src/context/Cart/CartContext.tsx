@@ -53,6 +53,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   });
   const productCategories = ["Men's Clothing", "Women's Clothing", "Jewelery", "Electronics"];
   const { data, error, loading } = useFetch(fetchUrl, fetchParams);
+  const newProducts = JSON.parse(localStorage.getItem("newProducts") || "[]");
   const products: Product[] =
     data?.map((item: any) => ({
       id: item.id,
@@ -101,7 +102,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       ...prevQuantities,
       [productID]: (prevQuantities[productID] || 0) + quantityToAdd,
     }));
-
+    
     setTotalCartQuantity((prevQuantity) => prevQuantity + quantityToAdd);
   };
 
