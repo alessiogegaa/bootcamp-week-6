@@ -6,7 +6,6 @@ import React, {
   useEffect,
 } from "react";
 import { useFetch } from "../../hooks/useFetch";
-
 export interface Product {
   id: number;
   title: string;
@@ -217,7 +216,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     if (category) {
       setFetchUrl(`https://fakestoreapi.com/products/category/${category}`);
     } else {
-      setFetchUrl("https://fakestoreapi.com/products");
+      setFetchUrl('https://fakestoreapi.com/products/');
     }
     setFetchParams(undefined); 
   };

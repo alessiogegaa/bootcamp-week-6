@@ -6,17 +6,14 @@ import { useTheme } from "../../context/Theme/ThemeContext";
 import  Button  from "@mui/material/Button";
 import Badge  from "@mui/material/Badge";
 import IconButton  from "@mui/material/IconButton";
-import Sidebar from "../SideBar/Sidebar";
 import { useCart } from "../../context/Cart/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useSidebar } from "../../context/SideBar/SidebarContext";
 const Navbar: React.FC = () => {
   const {totalCartQuantity} = useCart();
   const {theme, toggleTheme} = useTheme();
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
-  const toggleMenu = (): void => setMenuOpen(!menuOpen);
-  
-  const closeSidebar = (): void => setMenuOpen(false);
+  const { sidebarOpen, toggleSidebar } = useSidebar();
 
   const handleMenuClick = (item: string): void => {
     if(item==="Shop") navigate('/');
@@ -32,18 +29,11 @@ const Navbar: React.FC = () => {
         <img src={Logo} alt="Shop Logo" />
       </div>
 
-      <div className="nav-hamburger" onClick={toggleMenu}>
-        {menuOpen ? <FaTimes /> : <FaBars />}
+      <div className="nav-hamburger" onClick={toggleSidebar}>
+        {sidebarOpen ? <FaTimes /> : <FaBars />}
       </div>
 
-      {menuOpen && (
-        <div className="sidebar-overlay" onClick={closeSidebar}>
-         <div className={`sidebar-container ${menuOpen ? "open" : ""}`} >
-            <Sidebar />
-          </div>
-        </div>
-      )}
-
+      
       <ul className={`nav-menu`}>
         {["Shop", "Add Product", "Invoice"].map((item) => (
           <li
