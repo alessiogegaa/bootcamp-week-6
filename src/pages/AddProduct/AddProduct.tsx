@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { useForm } from 'react-hook-form';
 
 interface ProductFormData {
+  id: number;
   title: string;
   description: string;
   price: number;
@@ -16,17 +17,24 @@ interface ProductFormData {
 }
 
 const AddProduct: React.FC = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<ProductFormData>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<Omit<ProductFormData, 'id'>>(); // Exclude 'id' from the form
 
-  const onSubmit = (data: ProductFormData) => {
+  const onSubmit = (data: Omit<ProductFormData, 'id'>) => {
     const newProducts = JSON.parse(localStorage.getItem('newProducts') || '[]');
-    localStorage.setItem('newProducts', JSON.stringify([...newProducts, data]));
+
+    const highestID = newProducts.reduce((max: number, product: ProductFormData) => Math.max(max, product.id), 100);
+    const newID = highestID + 1;
+
+    const newProduct: ProductFormData = { ...data, id: newID };
+
+    localStorage.setItem('newProducts', JSON.stringify([...newProducts, newProduct]));
+
     reset();
     alert('Product added successfully!');
   };
 
   return (
-    <Container maxWidth="sm" sx={{pt: '10px'}}>
+    <Container maxWidth="sm" sx={{ pt: '10px' }}>
       <Paper elevation={3} style={{ padding: '2rem', backgroundColor: 'var(--background-color)', color: 'var(--text-color)' }}>
         <Typography variant="h4" style={{ color: 'var(--text-color-active)', textAlign: 'center', marginBottom: '1rem' }}>
           Add New Product

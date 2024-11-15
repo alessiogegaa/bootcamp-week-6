@@ -8,7 +8,7 @@ import { useSidebar } from "./context/SideBar/SidebarContext";
 function App() {
   const { products } = useCart();
   const [localStorageProducts, setLocalStorageProducts] = useState([]);
-  const isLargeScreen = useMediaQuery("(min-width: 768px)"); // Set breakpoint as needed
+  const isLargeScreen = useMediaQuery("(min-width: 768px)"); 
   const { sidebarOpen, toggleSidebar } = useSidebar();
 
   const fetchFromLocalStorage = () => {
@@ -22,13 +22,13 @@ function App() {
 
   useEffect(() => {
     if (isLargeScreen) {
-      toggleSidebar(); // Ensure sidebar is open on larger screens
+      toggleSidebar(); 
     }
   }, [isLargeScreen, toggleSidebar]);
 
   return (
     <div style={{ display: "flex", gap: "30px" }}>
-      {(isLargeScreen || sidebarOpen) && <Sidebar />} {/* Conditional rendering */}
+      {(isLargeScreen || sidebarOpen) && <Sidebar />} 
       <div
         style={{
           display: "flex",

@@ -1,6 +1,5 @@
 import "./Navbar.css";
 import { FaShoppingCart, FaBars, FaTimes, FaMoon, FaSun } from "react-icons/fa";
-import { useState } from "react";
 import Logo from "../../assets/onlineshoplogo.png";
 import { useTheme } from "../../context/Theme/ThemeContext";
 import  Button  from "@mui/material/Button";

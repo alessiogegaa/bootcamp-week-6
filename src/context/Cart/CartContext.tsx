@@ -128,6 +128,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const cart: { id: number; quantity: number }[] = JSON.parse(
       localStorage.getItem("cart") || "[]"
     );
+    
     return cart.reduce((total, item) => {
       const product = products.find((prod) => prod.id === item.id);
       if (product) {
@@ -142,9 +143,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const cart: { id: number; quantity: number }[] = JSON.parse(
       localStorage.getItem("cart") || "[]"
     );
+
+    const newProducts = JSON.parse(localStorage.getItem("newProducts") || "[]");
+
+    const allProducts = [...products, ...newProducts];
+
     const detailedProducts = cart
       .map((cartItem) => {
-        const product = products.find((prod) => prod.id === cartItem.id);
+        const product = allProducts.find((prod) => prod.id === cartItem.id);
         if (product) {
           return {
             ...product,
@@ -271,13 +277,13 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         generateInvoice
       }}
     >
-      {loading ? (
+      {/* {loading ? (
         <div>Loading...</div>
       ) : error ? (
         <div>Error loading products.</div>
-      ) : (
+      ) : ( */
         children
-      )}
+      }
     </CartContext.Provider>
   );
 };
